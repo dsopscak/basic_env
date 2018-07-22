@@ -8,7 +8,7 @@
 # an update.
 
 set -e
-set -x
+#set -x
 
 if [[ -z "$1" || -z "$2" || -z "$3" ]]; then
     echo "usage: rsync_with_cloud.sh <key> <target> <file|dir ...>"
@@ -20,6 +20,13 @@ MMI_RSYNC_TGT=$2
 
 temp_work="/tmp/rsync_with_cloud.$$"
 mkdir $temp_work
+
+function cleanup {
+    echo "Removing $temp_work"
+    rm -rf $temp_work
+}
+trap cleanup EXIT
+
 
 if [[ -e $MMI_RSYNC_TGT ]]; then
     # decrypt into workarea and update source
