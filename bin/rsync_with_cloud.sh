@@ -7,6 +7,8 @@
 # if the same file is updated in different sources before either does
 # an update.
 
+gpg=gpg2
+
 set -e
 #set -x
 
@@ -30,7 +32,7 @@ trap cleanup EXIT
 
 if [[ -e $MMI_RSYNC_TGT ]]; then
     # decrypt into workarea and update source
-    gpg --passphrase $MMI_RSYNC_KEY -d -o- $MMI_RSYNC_TGT |\
+    $gpg --batch --passphrase $MMI_RSYNC_KEY -d -o- $MMI_RSYNC_TGT |\
         tar -xzv -C $temp_work
     for f in ${@:3}; do
         rsync -avuP "$temp_work/$f/" "$f"
@@ -44,4 +46,4 @@ done
 
 # encrypt workarea into target
 cd $temp_work
-tar czf - * | gpg --yes --passphrase $MMI_RSYNC_KEY -c -o "$MMI_RSYNC_TGT"    
+tar czf - * | $gpg --batch --yes --passphrase $MMI_RSYNC_KEY -c -o "$MMI_RSYNC_TGT"    
