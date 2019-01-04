@@ -10,7 +10,7 @@
 gpg=gpg2
 
 set -e
-#set -x
+set -x
 
 if [[ -z "$1" || -z "$2" || -z "$3" ]]; then
     echo "usage: rsync_with_cloud.sh <key> <target> <file|dir ...>"
@@ -45,5 +45,5 @@ for f in ${@:3}; do
 done
 
 # encrypt workarea into target
-cd $temp_work
-tar czf - * | $gpg --batch --yes --passphrase $MMI_RSYNC_KEY -c -o "$MMI_RSYNC_TGT"    
+#cd $temp_work
+tar czf - -C $temp_work . | $gpg --batch --yes --passphrase $MMI_RSYNC_KEY -c -o "$MMI_RSYNC_TGT"
