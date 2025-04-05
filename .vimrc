@@ -1,13 +1,18 @@
+autocmd BufRead,BufNewFile *.txt setlocal spell
+
 filetype indent on
 set cino={1s:0fst0g-s(s
 set autoindent
 set shiftwidth=4
-"set tabstop=4
+set tabstop=4
 set textwidth=70
 set expandtab
 set noeb
 set vb t_vb=
-syntax on
+"syntax on
+syntax enable
+set background=dark
+colorscheme solarized
 set t_AB=[4%p1%dm
 set t_AF=[3%p1%dm
 set t_Co=8
@@ -18,7 +23,8 @@ hi Constant ctermfg=green
 hi Special ctermfg=green
 hi PreProc ctermfg=DarkCyan
 hi Number ctermfg=yellow
+"syntax enable
 
 " the following fixes a coloring problem related to a mising termcap
 " or something that munges up the interaction between xterm and vim
-set t_RV=
+"set t_RV=
